@@ -119,7 +119,7 @@ var WebRTCHandler = function(){
         slef.peerConnection = null;
     }
 
-    this.connectionstatechange = function(evt){
+    this.connectionstatechange = function(evt){ 
         console.log(self.peerConnection.connectionState);
     }
 };
