@@ -116,8 +116,10 @@ var WebRTCHandler = function(){
     }
 
     this.endCall = function(){
-        self.peerConnection.close();
-        slef.peerConnection = null;
+        if(self.peerConnection){
+            self.peerConnection.close();
+        }
+        self.peerConnection = null;
     }
 
     this.connectionstatechange = function(evt){ 
