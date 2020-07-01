@@ -12,7 +12,7 @@
     <br />
 
     <input type="button" id="start" onclick="start(false)" value="Start Video"></input>
-
+    <input type="button" id="stop" onclick="stop()" value="Stop Connection"></input>
     <script type="text/javascript">
         var webrtcHandler = new WebRTCHandler();
         webrtcHandler.createUUID();
@@ -26,6 +26,9 @@
         function start(boolval){
           webrtcHandler.initRTCCall(boolval);
           // webrtcHandler.createOffer();
+        }
+        function stop(){
+          webrtcHandler.endCall();
         }
     </script>
   </body>
