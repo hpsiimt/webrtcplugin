@@ -12,6 +12,7 @@ var WebRTCHandler = function(){
     this.remoteMediaElement = null;
     this.remoteMediaStream = null;
     this.signallingServerConnection = null;
+    this.isOfferer = false;
     var self = this;
     this.adduser = function(userId){
         self.user = userId;
@@ -37,13 +38,15 @@ var WebRTCHandler = function(){
         self.peerConnection = new RTCPeerConnection(this.iceServers);
         self.peerConnection.onicecandidate = self.gotIceCandidate;
         self.peerConnection.ontrack = self.gotRemoteStream;
+        // self.peerConnection.onaddstream = self.gotRemoteStream;
         self.peerConnection.oniceconnectionstatechange = self.connectionstatechange;
-        if(this.localStream){
-            self.peerConnection.addStream(self.localStream);
+        if(self.localMediaStream){
+            self.peerConnection.addStream(self.localMediaStream);
         }
     }
 
     this.createOffer = function(){
+        self.isOfferer = true;
         self.peerConnection.createOffer().then(self.createdDescription).catch(self.errorHandler);
     }
 
