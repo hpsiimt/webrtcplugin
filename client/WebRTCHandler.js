@@ -37,7 +37,7 @@ var WebRTCHandler = function(){
         self.peerConnection = new RTCPeerConnection(this.iceServers);
         self.peerConnection.onicecandidate = self.gotIceCandidate;
         self.peerConnection.ontrack = self.gotRemoteStream;
-        self.peerConnection.onconnectionstatechange = self.connectionstatechange;
+        self.peerConnection.oniceconnectionstatechange = self.connectionstatechange;
         if(this.localStream){
             self.peerConnection.addStream(self.localStream);
         }
@@ -73,7 +73,9 @@ var WebRTCHandler = function(){
     }
 
     this.gotMessageFromServer = function(message){
-        if(!self.peerConnection) start(false);
+        if(!self.peerConnection){
+            self.initRTCCall();
+        }
         var signal = JSON.parse(message.data);
         // Ignore messages from ourself
         if(signal.uuid == self.user) return;
@@ -114,7 +116,7 @@ var WebRTCHandler = function(){
         slef.peerConnection = null;
     }
 
-    function connectionstatechange(evt){
+    this.connectionstatechange = function(evt){
         console.log(self.peerConnection.connectionState);
     }
 };
