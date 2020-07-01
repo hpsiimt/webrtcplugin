@@ -14,7 +14,29 @@
     <input type="button" id="start" onclick="start(true)" value="Start Video"></input>
 
     <script type="text/javascript">
-        pageReady();
+        var webrtcHandler = new WebRTCHandler();
+        webrtcHandler.createUUID();
+        webrtcHandler.addLocalElement('localVideo');
+        webrtcHandler.addRemoteElement('remoteVideo');
+        webrtcHandler.initSignallingServer();
+        var constraints = {
+          video: true,
+          audio: true,
+        };
+
+        if(navigator.mediaDevices.getUserMedia) {
+          navigator.mediaDevices.getUserMedia(constraints).then(function(stream){
+            webrtcHandler.addLocalStream(stream);
+            webrtcHandler.showLocalStream();
+          }).catch(webrtcHandler.errorHandler);
+        } else {
+          alert('Your browser does not support getUserMedia API');
+        }
+
+        function start(boolval){
+          webrtcHandler.initRTCCall(boolval);
+          // webrtcHandler.createOffer();
+        }
     </script>
   </body>
 </html>

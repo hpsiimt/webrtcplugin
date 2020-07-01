@@ -17,11 +17,15 @@ var WebRTCHandler = function(){
         self.user = userId;
     }
 
-    this.addlLocalElement = function(elementId){
+    this.addLocalElement = function(elementId){
         self.localMediaElement = document.getElementById(elementId);
     }
 
-    this.addlLocalStream = function(localStream){
+    this.addRemoteElement = function(elementId){
+        self.remoteMediaElement = document.getElementById(elementId);
+    }
+
+    this.addLocalStream = function(localStream){
         self.localMediaStream = localStream;
     }
 
@@ -33,6 +37,7 @@ var WebRTCHandler = function(){
         self.peerConnection = new RTCPeerConnection(this.iceServers);
         self.peerConnection.onicecandidate = self.gotIceCandidate;
         self.peerConnection.ontrack = self.gotRemoteStream;
+        self.peerConnection.onconnectionstatechange = self.connectionstatechange;
         if(this.localStream){
             self.peerConnection.addStream(self.localStream);
         }
@@ -60,8 +65,8 @@ var WebRTCHandler = function(){
                 break;
             case 'wss':
             default:
-                self.signallingServerConnection = new WebSocket(signallingUrl);
-                // self.signallingServerConnection = new WebSocket('wss://' + window.location.hostname + ':8443');
+                // self.signallingServerConnection = new WebSocket(signallingUrl);
+                self.signallingServerConnection = new WebSocket('wss://' + window.location.hostname + ':8443');
                 self.signallingServerConnection.onmessage = self.gotMessageFromServer;
                 break;
         }
@@ -74,11 +79,11 @@ var WebRTCHandler = function(){
         if(signal.uuid == self.user) return;
         if(signal.sdp) {
             self.peerConnection.setRemoteDescription(new RTCSessionDescription(signal.sdp)).then(function() {
-            // Only create answers in response to offers
-            if(signal.sdp.type == 'offer') {
-                self.peerConnection.createAnswer().then(self.createdDescription).catch(self.errorHandler);
-            }
-            }).catch(errorHandler);
+                // Only create answers in response to offers
+                if(signal.sdp.type == 'offer') {
+                    self.peerConnection.createAnswer().then(self.createdDescription).catch(self.errorHandler);
+                }
+            }).catch(self.errorHandler);
         } else if(signal.ice) {
             self.peerConnection.addIceCandidate(new RTCIceCandidate(signal.ice)).catch(self.errorHandler);
         }
@@ -90,7 +95,7 @@ var WebRTCHandler = function(){
             self.signallingServerConnection.send(
                 JSON.stringify({'sdp': self.peerConnection.localDescription, 'uuid': self.user})
             );
-        }).catch(errorHandler);
+        }).catch(self.errorHandler);
     }
 
     this.errorHandler = function(error){
@@ -107,5 +112,9 @@ var WebRTCHandler = function(){
     this.endCall = function(){
         self.peerConnection.close();
         slef.peerConnection = null;
+    }
+
+    function connectionstatechange(evt){
+        console.log(self.peerConnection.connectionState);
     }
 };

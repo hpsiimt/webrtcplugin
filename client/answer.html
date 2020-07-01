@@ -11,10 +11,22 @@
 
     <br />
 
-    <input type="button" id="start" onclick="start(true)" value="Start Video"></input>
+    <input type="button" id="start" onclick="start(false)" value="Start Video"></input>
 
     <script type="text/javascript">
-        pageReady();
+        var webrtcHandler = new WebRTCHandler();
+        webrtcHandler.createUUID();
+        webrtcHandler.addLocalElement('localVideo');
+        webrtcHandler.addRemoteElement('remoteVideo');
+        webrtcHandler.initSignallingServer();
+        var constraints = {
+          video: true,
+          audio: true,
+        };
+        function start(boolval){
+          webrtcHandler.initRTCCall(boolval);
+          webrtcHandler.createOffer();
+        }
     </script>
   </body>
 </html>
