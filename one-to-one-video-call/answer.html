@@ -2,9 +2,9 @@
 <script src="WebRTCHandler.js"></script>
 <link href="style.css" rel="stylesheet" type="text/css">
     <div id="videos">
-    <div id="subscriber"></div>
-    <div id="publisher"></div>
-</div>
+        <video id="subscriber"></video>
+        <video id="publisher"></video>
+    </div>
 <style>
     body{
         font-family:'open_sansregular';
@@ -78,3 +78,21 @@
     .status-message { display: hide !important;}
     .started-activity-container { display: hide !important;}
 </style>
+<script type="text/javascript">
+    var webrtcHandler = new WebRTCHandler();
+    webrtcHandler.createUUID();
+    webrtcHandler.addLocalElement('publisher');
+    webrtcHandler.addRemoteElement('subscriber');
+    webrtcHandler.initSignallingServer();
+    var constraints = {
+      video: true,
+      audio: true,
+    };
+    function start(boolval){
+      webrtcHandler.initRTCCall(boolval);
+      // webrtcHandler.createOffer();
+    }
+    function stop(){
+      webrtcHandler.endCall();
+    }
+</script>
