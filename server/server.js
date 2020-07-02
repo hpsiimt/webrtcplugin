@@ -30,6 +30,18 @@ const handleRequest = function(request, response) {
   } else if(request.url === '/WebRTCHandler.js') {
     response.writeHead(200, {'Content-Type': 'application/javascript'});
     response.end(fs.readFileSync('../one-broadcast-one-viewer/WebRTCHandler.js'));
+  }else if(request.url === '/121/WebRTCHandler.js') {
+    response.writeHead(200, {'Content-Type': 'application/javascript'});
+    response.end(fs.readFileSync('../one-to-one-video-call/WebRTCHandler.js'));
+  }else if(request.url === '/121/offer') {
+    response.writeHead(200, {'Content-Type': 'text/html'});
+    response.end(fs.readFileSync('../one-to-one-video-call/offer.html'));
+  }else if(request.url === '/121/answer') {
+    response.writeHead(200, {'Content-Type': 'text/html'});
+    response.end(fs.readFileSync('../one-to-one-video-call/answer.html'));
+  } else if(request.url === '/121/style.css') {
+    response.writeHead(200, {'Content-Type': 'text/css'});
+    response.end(fs.readFileSync('../one-to-one-video-call/style.css'));
   }
 };
 

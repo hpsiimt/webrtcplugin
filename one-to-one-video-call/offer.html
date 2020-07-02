@@ -1,0 +1,114 @@
+<script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
+<script src="WebRTCHandler.js"></script>
+<link href="style.css" rel="stylesheet" type="text/css">
+<div id="videos">
+    <div id="subscriber"></div>
+    <div id="publisher"></div>
+</div>
+<style>
+    body {
+        font-family: 'open_sansregular';
+        margin: 0;
+    }
+
+    .select_wapper {
+        color: #4e555b;
+        cursor: pointer;
+        padding-left: 0;
+        position: relative;
+        width: 100%;
+        margin-top: 10px;
+    }
+
+    .select_wapper:after {
+        content: "\e007";
+        color: #b0b0b0;
+        float: left;
+        font-family: flaticon;
+        font-size: 14px;
+        position: absolute;
+        right: 0;
+        top: 0;
+        z-index: 0;
+        line-height: 36px;
+    }
+
+    .select_opt {
+        width: 100%;
+        display: inline-block;
+        -moz-appearance: none;
+        -webkit-appearance: none;
+        font-size: 12px;
+        -ms-appearance: none;
+        -o-appearance: none;
+        padding: 10px;
+        border: none;
+        height: 36px;
+    }
+
+    .test_end_sub {
+        display: block;
+        width: 95%;
+        margin: 0 auto;
+        text-align: center;
+    }
+
+    .test_end_sub p {
+        font-size: 14px;
+        text-align: left;
+    }
+
+    .test_end_sub input {
+        width: 40px;
+        vertical-align: middle;
+    }
+
+    .test_end_sub a {
+        background-color: #008938;
+        color: #fff;
+        width: 100%;
+        padding: 10px;
+        display: inline-block;
+        text-decoration: none;
+        border-radius: 5px;
+        box-sizing: border-box;
+        margin: 8px 0 6px;
+    }
+
+    #google_translate_element {
+        width: 300px;
+        float: right;
+        text-align: right;
+        display: block
+    }
+
+    .goog-te-banner-frame.skiptranslate {
+        display: none !important;
+    }
+
+    body {
+        top: 0px !important;
+    }
+
+    #goog-gt-tt {
+        display: none !important;
+        top: 0px !important;
+    }
+
+    .goog-tooltip skiptranslate {
+        display: none !important;
+        top: 0px !important;
+    }
+
+    .activity-root {
+        display: hide !important;
+    }
+
+    .status-message {
+        display: hide !important;
+    }
+
+    .started-activity-container {
+        display: hide !important;
+    }
+</style>

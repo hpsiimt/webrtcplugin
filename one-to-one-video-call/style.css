@@ -1,0 +1,52 @@
+body, html {
+    height: 100%;
+}
+
+#videos {
+    background-color: gray;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#subscriber {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 10;
+}
+
+#publisher {
+    position: absolute;
+    float:right;
+    width: 360px;
+    height: 240px;
+    bottom: 10px;
+    right: 10px;
+    z-index: 100;
+    border: 3px solid white;
+    border-radius: 3px;
+}
+#questionPallete {
+    position: absolute;
+    width: 23%;
+    height: 100%;
+    bottom: 0px;
+    left: 0px;
+    z-index: 100;
+    border-radius: 3px;
+    background: white;
+    padding-right:5px;
+}
+.outer-class-ul ol{
+    padding-left:30px;
+}
+.outer-class-ul ol li{
+    font-size:14px;
+    padding: 10px 0px 10px;
+     border-bottom: 1px solid #333;
+}
