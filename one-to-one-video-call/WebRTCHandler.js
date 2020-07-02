@@ -58,7 +58,6 @@ var WebRTCHandler = function(){
 
     this.gotRemoteStream = function(event) {
         console.debug('got remote stream');
-        console.log(event);
         self.remoteMediaElement.srcObject = event.streams[0];
     }
 

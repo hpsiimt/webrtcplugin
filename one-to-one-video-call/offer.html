@@ -1,5 +1,6 @@
 <script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
 <script src="WebRTCHandler.js"></script>
+<script src="CameraHandler.js"></script>
 <link href="style.css" rel="stylesheet" type="text/css">
 <div id="videos">
     <video id="subscriber"></video>
@@ -117,7 +118,6 @@
     webrtcHandler.createUUID();
     webrtcHandler.addLocalElement('publisher');
     webrtcHandler.addRemoteElement('subscriber');
-    webrtcHandler.initSignallingServer();
     var constraints = {
       video: true,
       audio: true,
@@ -127,6 +127,7 @@
       navigator.mediaDevices.getUserMedia(constraints).then(function(stream){
         webrtcHandler.addLocalStream(stream);
         webrtcHandler.showLocalStream();
+        webrtcHandler.initSignallingServer();
         start(true);
       }).catch(webrtcHandler.errorHandler);
     } else {
@@ -134,8 +135,8 @@
     }
 
     function start(boolval){
-      webrtcHandler.initRTCCall(boolval);
-      webrtcHandler.createOffer();
+        webrtcHandler.initRTCCall(boolval);
+        webrtcHandler.createOffer();
     }
 
     function stop(){

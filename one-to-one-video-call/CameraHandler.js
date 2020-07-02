@@ -13,7 +13,11 @@ var CameraHandler = function(){
     }
 
     self.getMediaStream =  function(successCallback, failCallback){
-        navigator.mediaDevices.getUserMedia(self.constraints).then(successCallback, failCallback);
+        if(this.isMediaDeviceSupported){
+            navigator.mediaDevices.getUserMedia(self.constraints).then(successCallback, failCallback);
+        }else {
+            failCallback;
+        }
     }
 
     self.setLocalStream  = function(stream){
