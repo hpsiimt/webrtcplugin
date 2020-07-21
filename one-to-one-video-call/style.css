@@ -50,3 +50,9 @@ body, html {
     padding: 10px 0px 10px;
      border-bottom: 1px solid #333;
 }
+.btns{
+    position: fixed;
+    right: 10px;
+    bottom: 10px;
+    z-index: 999;
+}

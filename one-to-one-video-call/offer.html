@@ -5,6 +5,10 @@
 <div id="videos">
     <video id="subscriber" autoplay></video>
     <video id="publisher" autoplay muted></video>
+    <div id="btns" class="btns">
+        <button onclick="stop()">Stop</button>
+        <button onclick="start()">Start</button>
+    </div>
 </div>
 <style>
     body {
@@ -128,14 +132,14 @@
         webrtcHandler.addLocalStream(stream);
         webrtcHandler.showLocalStream();
         webrtcHandler.initSignallingServer();
-        start(true);
+        start();
       }).catch(webrtcHandler.errorHandler);
     } else {
       alert('Your browser does not support getUserMedia API');
     }
 
-    function start(boolval){
-        webrtcHandler.initRTCCall(boolval);
+    function start(){
+        webrtcHandler.initRTCCall();
         webrtcHandler.createOffer();
     }
 

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
+    <script src="WebRTCHandler.js"></script>
+  </head>
+
+  <body>
+    <video id="localVideo" autoplay muted style="width:40%;"></video>
+    <video id="remoteVideo" autoplay style="width:40%;"></video>
+
+    <br />
+
+    <input type="button" id="start" onclick="start(true)" value="Create Offer"></input>
+    <input type="button" id="stop" onclick="stop()" value="Stop Connection"></input>
+
+    <script type="text/javascript">
+        var webrtcHandler = new WebRTCHandler();
+        webrtcHandler.createUUID();
+        webrtcHandler.addLocalElement('localVideo');
+        webrtcHandler.addRemoteElement('remoteVideo');
+        webrtcHandler.initSignallingServer();
+        var constraints = {
+          video: true,
+          audio: true,
+        };
+
+        if(navigator.mediaDevices.getUserMedia) {
+          navigator.mediaDevices.getUserMedia(constraints).then(function(stream){
+            webrtcHandler.addLocalStream(stream);
+            webrtcHandler.showLocalStream();
+          }).catch(webrtcHandler.errorHandler);
+        } else {
+          alert('Your browser does not support getUserMedia API');
+        }
+
+        function start(boolval){
+          webrtcHandler.initRTCCall(boolval);
+          webrtcHandler.createOffer();
+        }
+
+        function stop(){
+          webrtcHandler.endCall();
+        }
+    </script>
+  </body>
+</html>
